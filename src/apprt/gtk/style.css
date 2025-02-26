@@ -63,3 +63,38 @@ window.ssd.no-border-radius {
   margin: 0;
   padding: 0;
 }
+
+/* By default, a GtkPaned wide handle has a 1px border at the left
+* and right of the 5px wide pane resize handle. This border is created
+* with `box-shadow`. Instead, we want a single 1px line exactly in the
+* center of the pane resize handle.
+*
+* To achieve this, we reset box-shadow to `none`, and create a 1px
+* wide linear-gradient of the appropriate color in the center of
+* the pane resize handle.
+*
+* Attribution: https://stackoverflow.com/a/53551089
+*
+* We need to do this separately for vertical and horizontal panes.
+*/
+.terminal-window .notebook paned.vertical > separator {
+  box-shadow: none;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.15)
+  );
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.terminal-window .notebook paned.horizontal > separator {
+  box-shadow: none;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.15)
+  );
+  background-size: 1px 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
