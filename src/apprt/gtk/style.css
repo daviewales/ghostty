@@ -63,3 +63,75 @@ window.ssd.no-border-radius {
   margin: 0;
   padding: 0;
 }
+
+/* Add 6px padding to any pane side which touches a pane separator.
+ * This ensures that the pane resize handle and the pane content do
+ * not overlap.
+ *
+ * There are four universal rules for any given pane:
+ *
+ * 1.  If any ancestor is the first child of a vertical split, add
+ *     bottom padding.
+ * 2.  If any ancestor is the second child of a vertical split, add
+ *     top padding.
+ * 3.  If any ancestor is the first child of a horizontal split, add
+ *     right padding.
+ * 4.  If any ancestor is the second child of a horizontal split,
+ *     add left padding.
+ *
+ * However, because the children of split panes may be _either_
+ * 'overlay' or another 'pane', these four rules become eight, to
+ * account for these two possibilities in CSS.
+ *
+ * Note that we must apply padding _only_ to the overlay element, not
+ * to a pane element, as this ensures that the separators will
+ * intersect. If padding is added to a pane element, it will create
+ * a gap between perpendicular separators.
+ */
+
+/* An overlay which descends from the first-child of a horizontal
+ * pane 
+ */
+.terminal-window .notebook paned.horizontal > :first-child overlay {
+  padding-right: 6px;
+}
+
+/* An overlay which _is_ the first-child of a horizontal pane. */
+.terminal-window .notebook paned.horizontal > overlay:first-child {
+  padding-right: 6px;
+}
+
+/* An overlay which descends from the last-child of a horizontal
+ * pane
+ */
+.terminal-window .notebook paned.horizontal > :last-child overlay {
+  padding-left: 6px;
+}
+
+/* An overlay which _is_ the last-child of a horizontal pane */
+.terminal-window .notebook paned.horizontal > overlay:last-child {
+  padding-left: 6px;
+}
+
+/* An overlay which descends from the first-child of a vertical pane
+ */
+.terminal-window .notebook paned.vertical > :first-child overlay {
+  padding-bottom: 6px;
+}
+
+/* An overlay which _is_ the first-child of a vertical pane */
+.terminal-window .notebook paned.vertical > overlay:first-child {
+  padding-bottom: 6px;
+}
+
+/* An overlay which descends from the last-child of a vertical pane
+ */
+.terminal-window .notebook paned.vertical > :last-child overlay {
+  padding-top: 6px;
+}
+
+/* An overlay which _is_ the last-child of a vertical pane */
+.terminal-window .notebook paned.vertical > overlay:last-child {
+  padding-top: 6px;
+}
+
